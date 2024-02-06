@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_fundamentals/Functions/authfunction.dart';
+import 'package:firebase_fundamentals/Pages/CRUD%20Page/crud_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -41,8 +43,10 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
         isSignup
-            ? signup(emailController.text.toString(), passwordController.text.toString())
-            : login(emailController.text.toString(), passwordController.text.toString());
+            ? signup(emailController.text.toString(),
+                passwordController.text.toString())
+            : login(context,emailController.text.toString(),
+                passwordController.text.toString());
       }
     }
 
@@ -57,54 +61,59 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       appBar: AppBar(
         title: Text(isSignup ? "SignUp Page" : "Login"),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 200,
-              ),
-              isSignup
-                  ? TextFormFieldWid("Enter Name", nameController,
-                  Icons.drive_file_rename_outline, requiredValidator)
-                  : Container(),
-              TextFormFieldWid(
-                "Enter Email",
-                emailController,
-                Icons.email_outlined,
-                emailValidator,
-              ),
-              TextFormFieldWid("Enter Password", passwordController,
-                  Icons.password, requiredValidator,
-                  showPassword: false),
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                  ),
-                  onPressed: isValidate,
-                  child: Text(isSignup ? 'Sign Up' : 'Login'),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: const Icon(
+                      Icons.flutter_dash,
+                      size: 250,
+                    )),
+                isSignup
+                    ? TextFormFieldWid("Enter Name", nameController,
+                        Icons.drive_file_rename_outline, requiredValidator)
+                    : Container(),
+                TextFormFieldWid(
+                  "Enter Email",
+                  emailController,
+                  Icons.email_outlined,
+                  emailValidator,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextButton(
-                onPressed: () {
-                  isSignup = !isSignup;
-                  setState(() {});
-                },
-                child: Text(isSignup
-                    ? "Already Signed Up? Login"
-                    : "Already Login In? SignUp"),
-              ),
-            ],
+                TextFormFieldWid("Enter Password", passwordController,
+                    Icons.password, requiredValidator,
+                    showPassword: false),
+                SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    onPressed: isValidate,
+                    child: Text(isSignup ? 'Sign Up' : 'Login'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                  onPressed: () {
+                    isSignup = !isSignup;
+                    setState(() {});
+                  },
+                  child: Text(isSignup
+                      ? "Already Signed Up? Login"
+                      : "Already Login In? SignUp"),
+                ),
+              ],
+            ),
           ),
         ),
       ),
