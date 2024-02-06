@@ -12,8 +12,23 @@ create() async {
   }
 }
 
-update() {}
+update()async{
+  try{
+    await FirebaseFirestore.instance.collection("TODO").doc("Create").update(
+        {"age": 7}).then((value) => print('Data Updated'));
+  }catch(e){
+    print(e);
+  }
+}
 
-delete() {}
+delete()async {
+  try {
+    await FirebaseFirestore.instance.collection("TODO").doc("Create")
+        .delete()
+        .then((value) => print("Data Deleted"));
+  }catch(e){
+    print(e);
+  }
+}
 
 read() {}
