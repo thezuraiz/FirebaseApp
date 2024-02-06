@@ -1,5 +1,6 @@
 import 'package:firebase_fundamentals/Functions/authfunction.dart';
 import 'package:firebase_fundamentals/Functions/crud_functions.dart';
+import 'package:firebase_fundamentals/Pages/CRUD%20Page/ReadPage.dart';
 import 'package:flutter/material.dart';
 
 class CrudApp extends StatefulWidget {
@@ -25,7 +26,7 @@ class _CrudAppState extends State<CrudApp> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             elevatedbuttonWid("CREATE", create),
-            elevatedbuttonWid("READ", read),
+            elevatedbuttonWid("READ", () => Navigator.push(context, MaterialPageRoute(builder: (context) => Read_Data() ))),
             elevatedbuttonWid("UPDATE", update),
             elevatedbuttonWid("DELETE", delete),
           ],
